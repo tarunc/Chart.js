@@ -11091,7 +11091,6 @@ var core_ticks = {
 var isArray = helpers$1.isArray;
 var isNullOrUndef = helpers$1.isNullOrUndef;
 var valueOrDefault$a = helpers$1.valueOrDefault;
-var valueAtIndexOrDefault = helpers$1.valueAtIndexOrDefault;
 
 core_defaults._set('scale', {
 	display: true,
@@ -12135,7 +12134,7 @@ var Scale = core_element.extend({
 
 		var tl = getTickMarkLength(gridLines);
 		var items = [];
-		var axisWidth = gridLines.drawBorder ? valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
+		var axisWidth = gridLines.drawBorder ? helpers$1.valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
 		var axisHalfWidth = axisWidth / 2;
 		var alignPixel = helpers$1._alignPixel;
 		var alignBorderValue = function(pixel) {
@@ -12185,8 +12184,8 @@ var Scale = core_element.extend({
 				borderDash = gridLines.zeroLineBorderDash || [];
 				borderDashOffset = gridLines.zeroLineBorderDashOffset || 0.0;
 			} else {
-				lineWidth = valueAtIndexOrDefault(gridLines.lineWidth, i, 1);
-				lineColor = valueAtIndexOrDefault(gridLines.color, i, 'rgba(0,0,0,0.1)');
+				lineWidth = helpers$1.valueAtIndexOrDefault(gridLines.lineWidth, i, 1);
+				lineColor = helpers$1.valueAtIndexOrDefault(gridLines.color, i, 'rgba(0,0,0,0.1)');
 				borderDash = gridLines.borderDash || [];
 				borderDashOffset = gridLines.borderDashOffset || 0.0;
 			}
@@ -12312,7 +12311,7 @@ var Scale = core_element.extend({
 		var ctx = me.ctx;
 		var chart = me.chart;
 		var alignPixel = helpers$1._alignPixel;
-		var axisWidth = gridLines.drawBorder ? valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
+		var axisWidth = gridLines.drawBorder ? helpers$1.valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
 		var items = me._gridLineItems || (me._gridLineItems = me._computeGridLineItems(chartArea));
 		var width, color, i, ilen, item;
 
@@ -12350,7 +12349,7 @@ var Scale = core_element.extend({
 		if (axisWidth) {
 			// Draw the line at the edge of the axis
 			var firstLineWidth = axisWidth;
-			var lastLineWidth = valueAtIndexOrDefault(gridLines.lineWidth, items.ticksLength - 1, 1);
+			var lastLineWidth = helpers$1.valueAtIndexOrDefault(gridLines.lineWidth, items.ticksLength - 1, 1);
 			var borderValue = items.borderValue;
 			var x1, x2, y1, y2;
 
@@ -12365,7 +12364,7 @@ var Scale = core_element.extend({
 			}
 
 			ctx.lineWidth = axisWidth;
-			ctx.strokeStyle = valueAtIndexOrDefault(gridLines.color, 0);
+			ctx.strokeStyle = helpers$1.valueAtIndexOrDefault(gridLines.color, 0);
 			ctx.beginPath();
 			ctx.moveTo(x1, y1);
 			ctx.lineTo(x2, y2);
@@ -13370,7 +13369,7 @@ var _defaults$2 = defaultConfig$2;
 scale_logarithmic._defaults = _defaults$2;
 
 var valueOrDefault$c = helpers$1.valueOrDefault;
-var valueAtIndexOrDefault$1 = helpers$1.valueAtIndexOrDefault;
+var valueAtIndexOrDefault = helpers$1.valueAtIndexOrDefault;
 var resolve$4 = helpers$1.options.resolve;
 
 var defaultConfig$3 = {
@@ -13599,7 +13598,7 @@ function drawPointLabels(scale) {
 		var pointLabelPosition = scale.getPointPosition(i, outerDistance + extra + 5);
 
 		// Keep this in loop since we may support array properties here
-		var pointLabelFontColor = valueAtIndexOrDefault$1(pointLabelOpts.fontColor, i, core_defaults.global.defaultFontColor);
+		var pointLabelFontColor = valueAtIndexOrDefault(pointLabelOpts.fontColor, i, core_defaults.global.defaultFontColor);
 		ctx.fillStyle = pointLabelFontColor;
 
 		var angleRadians = scale.getIndexAngle(i);
@@ -13615,8 +13614,8 @@ function drawRadiusLine(scale, gridLineOpts, radius, index) {
 	var ctx = scale.ctx;
 	var circular = gridLineOpts.circular;
 	var valueCount = scale.chart.data.labels.length;
-	var lineColor = valueAtIndexOrDefault$1(gridLineOpts.color, index - 1);
-	var lineWidth = valueAtIndexOrDefault$1(gridLineOpts.lineWidth, index - 1);
+	var lineColor = valueAtIndexOrDefault(gridLineOpts.color, index - 1);
+	var lineWidth = valueAtIndexOrDefault(gridLineOpts.lineWidth, index - 1);
 	var pointPosition;
 
 	if ((!circular && !valueCount) || !lineColor || !lineWidth) {

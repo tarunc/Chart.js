@@ -8,7 +8,6 @@ var Ticks = require('./core.ticks');
 var isArray = helpers.isArray;
 var isNullOrUndef = helpers.isNullOrUndef;
 var valueOrDefault = helpers.valueOrDefault;
-var valueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
 
 defaults._set('scale', {
 	display: true,
@@ -1052,7 +1051,7 @@ var Scale = Element.extend({
 
 		var tl = getTickMarkLength(gridLines);
 		var items = [];
-		var axisWidth = gridLines.drawBorder ? valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
+		var axisWidth = gridLines.drawBorder ? helpers.valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
 		var axisHalfWidth = axisWidth / 2;
 		var alignPixel = helpers._alignPixel;
 		var alignBorderValue = function(pixel) {
@@ -1102,8 +1101,8 @@ var Scale = Element.extend({
 				borderDash = gridLines.zeroLineBorderDash || [];
 				borderDashOffset = gridLines.zeroLineBorderDashOffset || 0.0;
 			} else {
-				lineWidth = valueAtIndexOrDefault(gridLines.lineWidth, i, 1);
-				lineColor = valueAtIndexOrDefault(gridLines.color, i, 'rgba(0,0,0,0.1)');
+				lineWidth = helpers.valueAtIndexOrDefault(gridLines.lineWidth, i, 1);
+				lineColor = helpers.valueAtIndexOrDefault(gridLines.color, i, 'rgba(0,0,0,0.1)');
 				borderDash = gridLines.borderDash || [];
 				borderDashOffset = gridLines.borderDashOffset || 0.0;
 			}
@@ -1229,7 +1228,7 @@ var Scale = Element.extend({
 		var ctx = me.ctx;
 		var chart = me.chart;
 		var alignPixel = helpers._alignPixel;
-		var axisWidth = gridLines.drawBorder ? valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
+		var axisWidth = gridLines.drawBorder ? helpers.valueAtIndexOrDefault(gridLines.lineWidth, 0, 0) : 0;
 		var items = me._gridLineItems || (me._gridLineItems = me._computeGridLineItems(chartArea));
 		var width, color, i, ilen, item;
 
@@ -1267,7 +1266,7 @@ var Scale = Element.extend({
 		if (axisWidth) {
 			// Draw the line at the edge of the axis
 			var firstLineWidth = axisWidth;
-			var lastLineWidth = valueAtIndexOrDefault(gridLines.lineWidth, items.ticksLength - 1, 1);
+			var lastLineWidth = helpers.valueAtIndexOrDefault(gridLines.lineWidth, items.ticksLength - 1, 1);
 			var borderValue = items.borderValue;
 			var x1, x2, y1, y2;
 
@@ -1282,7 +1281,7 @@ var Scale = Element.extend({
 			}
 
 			ctx.lineWidth = axisWidth;
-			ctx.strokeStyle = valueAtIndexOrDefault(gridLines.color, 0);
+			ctx.strokeStyle = helpers.valueAtIndexOrDefault(gridLines.color, 0);
 			ctx.beginPath();
 			ctx.moveTo(x1, y1);
 			ctx.lineTo(x2, y2);
